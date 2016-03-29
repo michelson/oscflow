@@ -1,5 +1,5 @@
 var WebSocket = require('ws');
-var ws = new WebSocket('ws://localhost:8080');
+var ws = new WebSocket('ws://localhost:8081');
 
 console.log("loading app");
 
