@@ -6,6 +6,23 @@ var BrowserWindow = require('browser-window');  // Module to create native brows
 // be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
 
+var path = require('path');
+var spawn = require('child_process').spawn;
+
+//var child = spawn(path.join(__dirname, '..', 'main'), ['game.config', '--debug']);
+var child = spawn(path.join(__dirname, 'main') );
+
+    child.stdout.on('data', function(data) {
+            //result += data.toString();
+            console.log(data.toString());
+    });
+    child.on('close', function(code) {
+        console.log("close go server");
+            //return result;
+    });
+
+// attach events, etc.
+
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
     // On OS X it is common for applications and their menu bar
@@ -20,7 +37,7 @@ app.on('window-all-closed', function() {
 app.on('ready', function() {
 
     // Create the browser window.
-    mainWindow = new BrowserWindow({width: 900, height: 600});
+    mainWindow = new BrowserWindow({width: 320, height: 240});
 
     // and load the index.html of the app.
     mainWindow.loadURL('file://' + __dirname + '/index.html');
