@@ -1,9 +1,9 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 
-require('electron-debug')({
+/*require('electron-debug')({
     showDevTools: true
-});
+});*/
 
 var WebSocketServer = require('ws').Server
   , wss = new WebSocketServer({ port: 8080 });
@@ -14,7 +14,6 @@ var mainWindow = null;
 
 var path = require('path');
 var spawn = require('child_process').spawn;
-
 
 //var child = spawn(path.join(__dirname, '..', 'main'), ['game.config', '--debug']);
 var child = spawn(path.join(__dirname, 'main') );
