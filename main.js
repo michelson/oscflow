@@ -1,12 +1,12 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 
-/*require('electron-debug')({
+require('electron-debug')({
     showDevTools: true
-});*/
+});
 
 var WebSocketServer = require('ws').Server
-  , wss = new WebSocketServer({ port: 8080 });
+  , wss = new WebSocketServer({ port: 8081 });
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -15,6 +15,7 @@ var mainWindow = null;
 var path = require('path');
 var spawn = require('child_process').spawn;
 
+//spawn go app
 //var child = spawn(path.join(__dirname, '..', 'main'), ['game.config', '--debug']);
 var child = spawn(path.join(__dirname, 'main') );
 
