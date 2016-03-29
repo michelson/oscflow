@@ -7,7 +7,7 @@
     "pretty-bytes": "^2.0.1"
   },
   "devDependencies": {
-    "electron-prebuilt": "^0.35.2"
+    "electron-prebuilt": "latest"
   },
   "scripts": {
     "start": "electron main.js"
