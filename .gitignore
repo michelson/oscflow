@@ -1,3 +1,5 @@
 node_modules
 elect-test
 main
+public
+dist
