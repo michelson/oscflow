@@ -1,16 +1,29 @@
 
 #INSTALL AND RUN APP 
 
-go get github.com/hypebeast/go-osc/osc
+### setup golang
 
-go run main.go
+  install golang
 
-go build main.go
+  export gopath, example
 
-tab1: npm run-script watch
+  `export GOPATH=~/go`
 
-tab2: npm start
+  `go get github.com/hypebeast/go-osc/osc`
 
+  `go run main.go`
+
+  `go build main.go`
+
+### Run application
+
+tab1: `npm run-script watch`
+
+tab2: `npm start`
+
+### Build static assets
+
+`webpack`
 
 #MODEL
 
