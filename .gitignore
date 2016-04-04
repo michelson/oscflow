@@ -4,3 +4,13 @@ main
 public
 dist
 oscflow
+.vagrant
+
+src/golang.com
+src/github.com
+src/gopkg.in
+bin
+pkg
+cache
+
+oscflow

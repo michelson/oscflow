@@ -29,6 +29,22 @@ tab2: `npm start`
 
 ![model](./model.png)
 
+# COMPILATION ARM
+
+https://github.com/adafruit/ARM-toolchain-vagrant
+
+vagrant up
+
+vagrant ssh
+
+  + http://dave.cheney.net/2012/09/25/installing-go-on-the-raspberry-pi
+
+  + https://github.com/sourcegraph/go-webkit2
+
+  + puredta
+    https://puredata.info/docs/developer/BuildingPdExtendedForRaspberryPiRaspbianWheezyArmhf
+
+  - sudo apt-get install libwebkit2gtk-3.0-dev
 
 #TODO
 
