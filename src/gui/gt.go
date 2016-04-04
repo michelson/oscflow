@@ -11,7 +11,7 @@ func Example() {
 	thrust.Start()
 
 	thrustWindow := thrust.NewWindow(thrust.WindowOptions{
-		RootUrl: fmt.Sprintf("http://127.0.0.1:%d", 8080),
+		RootUrl: fmt.Sprintf("http://127.0.0.1:%d", 8181),
 	})
 	thrustWindow.Show()
 	thrustWindow.Focus()

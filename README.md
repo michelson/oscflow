@@ -19,7 +19,8 @@
 
 tab1: `npm run-script watch`
 
-tab2: `npm start`
+tab2: `npm start` // `make run` (todo: ws to interface)
+
 
 ### Build static assets
 
@@ -45,6 +46,10 @@ vagrant ssh
     https://puredata.info/docs/developer/BuildingPdExtendedForRaspberryPiRaspbianWheezyArmhf
 
   - sudo apt-get install libwebkit2gtk-3.0-dev
+
+  - osx
+  - instalar webkit1 (agregar a /usr/local/formulas/webkit1.rb)
+  - https://github.com/pedromartins/homebrew-webkit/blob/master/webkitgtk.rb
 
 #TODO
 
