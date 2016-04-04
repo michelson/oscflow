@@ -2,6 +2,7 @@ package gui
 
 import (
 	"fmt"
+	commands "github.com/miketheprogrammer/go-thrust/lib/commands"
 	"github.com/miketheprogrammer/go-thrust/thrust"
 )
 
@@ -10,11 +11,18 @@ func Example() {
 	thrust.InitLogger()
 	thrust.Start()
 
+	size := commands.SizeHW{Width: 320, Height: 240}
+
 	thrustWindow := thrust.NewWindow(thrust.WindowOptions{
 		RootUrl: fmt.Sprintf("http://127.0.0.1:%d", 8181),
+		//HasFrame: true,
+		Size: size,
 	})
+
 	thrustWindow.Show()
 	thrustWindow.Focus()
+	//thrustWindow.Fullscreen(true)
+	thrustWindow.OpenDevtools()
 	// BLOCKING - Dont run before youve excuted all commands you want first.
 	thrust.LockThread()
 }
