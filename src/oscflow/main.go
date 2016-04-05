@@ -11,6 +11,9 @@ import (
 // osc listener
 // websocket listener
 func main() {
+
+	go ws.Listener()
+
 	fmt.Println("init oscflow")
 
 	addr := "127.0.0.1:8765"
@@ -25,8 +28,6 @@ func main() {
 
 		ws.Sender(m)
 	})
-
-	go ws.Listener()
 
 	ws.FakeSender()
 

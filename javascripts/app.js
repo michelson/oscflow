@@ -12,7 +12,7 @@ ws.onopen = function()
 ws.onmessage = function (evt) 
 { 
   var received_msg = evt.data;
-  console.log("Message is received...");
+  //console.log("Message is received...");
   console.log(evt.data)
   document.getElementById("stats").innerHTML = received_msg;
 
