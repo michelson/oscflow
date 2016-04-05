@@ -21,12 +21,14 @@ func main() {
 
 	server.Handle("/message/address", func(msg *osc.Message) {
 		//osc.PrintMessage(msg)
-		fmt.Println(msg)
-		var m = &ws.Message{
+		//fmt.Println(msg.Arguments)
+		/*var m = &ws.Message{
 			Author: "miguel",
 			Body:   "this is from osc mdf!"}
 
 		ws.Sender(m)
+		*/
+		ws.Sender(msg.Arguments)
 	})
 
 	ws.FakeSender()

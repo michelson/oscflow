@@ -20,6 +20,7 @@ const channelBufSize = 1000
 // Create new chat client.
 func NewClient(ws *websocket.Conn, server *Server) *Client {
 	fmt.Println("init client")
+
 	if ws == nil {
 		panic("ws cannot be nil")
 	} else if server == nil {
