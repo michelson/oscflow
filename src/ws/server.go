@@ -1,70 +1,133 @@
 package ws
 
 import (
-	"fmt"
+	//"fmt"
 	"golang.org/x/net/websocket"
-	"io"
+	//"io"
 	"log"
 	"net/http"
 	"time"
 	//"os"
 )
 
-// Echo the data received on the WebSocket.
-func EchoServer(ws *websocket.Conn) {
-	fmt.Println("ola")
+// Chat server.
+type Server struct {
+	path         string
+	clients      []*Client
+	addClient    chan *Client
+	removeClient chan *Client
+	sendAll      chan *Message
+	messages     []*Message
+}
 
-	//fmt.Println(ws)
+// Create new chat server.
+func NewServer(path string) *Server {
+	clients := make([]*Client, 0)
+	addClient := make(chan *Client)
+	removeClient := make(chan *Client)
+	sendAll := make(chan *Message)
+	messages := make([]*Message, 0)
+	return &Server{path, clients, addClient, removeClient, sendAll, messages}
+}
 
-	var in []byte
-	if err := websocket.Message.Receive(ws, &in); err != nil {
-		return
+func (self *Server) AddClient() chan<- *Client {
+	return (chan<- *Client)(self.addClient)
+}
+
+func (self *Server) RemoveClient() chan<- *Client {
+	return (chan<- *Client)(self.removeClient)
+}
+
+func (self *Server) SendAll() chan<- *Message {
+	return (chan<- *Message)(self.sendAll)
+}
+
+func (self *Server) Messages() []*Message {
+	msgs := make([]*Message, len(self.messages))
+	copy(msgs, self.messages)
+	return msgs
+}
+
+// Listen and serve.
+// It serves client connection and broadcast request.
+func (self *Server) Listen() {
+
+	log.Println("Listening server...")
+
+	// websocket handler
+	onConnected := func(ws *websocket.Conn) {
+		client := NewClient(ws, self)
+		self.addClient <- client
+		client.Listen()
+		defer ws.Close()
 	}
-	fmt.Printf("WEbsotcket message Received: %s\n", string(in))
-	websocket.Message.Send(ws, in)
+	http.Handle(self.path, websocket.Handler(onConnected))
+	log.Println("Created handler")
 
-	//this might not be necessary
-	io.Copy(ws, ws)
+	for {
+		select {
+
+		// Add new a client
+		case c := <-self.addClient:
+			log.Println("Added new client")
+			self.clients = append(self.clients, c)
+			for _, msg := range self.messages {
+				c.Write() <- msg
+			}
+			log.Println("Now", len(self.clients), "clients connected.")
+
+		// remove a client
+		case c := <-self.removeClient:
+			log.Println("Remove client")
+			for i := range self.clients {
+				if self.clients[i] == c {
+					self.clients = append(self.clients[:i], self.clients[i+1:]...)
+					break
+				}
+			}
+
+		// broadcast message for all clients
+		case msg := <-self.sendAll:
+			log.Println("Send all:", msg)
+			self.messages = append(self.messages, msg)
+			for _, c := range self.clients {
+				c.Write() <- msg
+			}
+		}
+	}
 }
 
 // This example demonstrates a trivial echo server.
+var server = NewServer("/echo")
+
+func Sender(msg *Message) {
+
+	server.SendAll() <- msg
+}
+
 func Listener() {
-	http.Handle("/echo", websocket.Handler(EchoServer))
-	err := http.ListenAndServe(":12345", nil)
+
+	//server := NewServer("/echo")
+	go server.Listen()
+
+	err := http.ListenAndServe(":8081", nil)
 	if err != nil {
 		panic("ListenAndServe: " + err.Error())
 	}
-}
-
-func Writter() {
-
-	origin := "http://localhost/"
-	url := "ws://localhost:12345/echo"
-	ws, err := websocket.Dial(url, "", origin)
-	if err != nil {
-		log.Fatal(err)
-	}
-	if _, err := ws.Write([]byte("hello, world!\n")); err != nil {
-		log.Fatal(err)
-	}
-	var msg = make([]byte, 512)
-	var n int
-	if n, err = ws.Read(msg); err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("Received: %s.\n", msg[:n])
 
 }
 
 func FakeSender() {
 	//senbd websocket messages
-	ticker := time.NewTicker(1 * time.Second)
+	ticker := time.NewTicker(2 * time.Second)
 	quit := make(chan struct{})
+	var msg = &Message{Author: "miguel", Body: "Hello is there anybody in there?"}
 	go func() {
 		for {
 			select {
 			case <-ticker.C:
-				Writter()
+				server.SendAll() <- msg
+				//Writter()
 			case <-quit:
 				ticker.Stop()
 				return

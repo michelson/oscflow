@@ -1,26 +1,25 @@
-//var WebSocket = require('ws');
-var ws = new WebSocket('ws://localhost:8081');
-
-console.log("loading app");
-
-ws.on('open', function open() {
-  var array = new Float32Array(5);
-
-  for (var i = 0; i < array.length; ++i) {
-    array[i] = i / 2;
-  }
-
-  ws.send(array, { binary: true, mask: true });
-});
-
-
-ws.on('open', function open() {
+// Let us open a web socket
+var ws = new WebSocket("ws://localhost:8081/echo");
+ws.onopen = function()
+{
+  // Web Socket is connected, send data using send()
+  ws.send("Message to send");
+  console.log("Message is sent...");
   ws.send('something from client');
-});
 
-ws.on('message', function(data, flags) {
-  console.log(data);
-  document.getElementById("stats").innerHTML = data;
-  // flags.binary will be set if a binary data is received.
-  // flags.masked will be set if the data was masked.
-});
+};
+
+ws.onmessage = function (evt) 
+{ 
+  var received_msg = evt.data;
+  console.log("Message is received...");
+  console.log(evt.data)
+  document.getElementById("stats").innerHTML = received_msg;
+
+};
+
+ws.onclose = function()
+{ 
+  // websocket is closed.
+  console.log("Connection is closed..."); 
+};

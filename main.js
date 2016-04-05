@@ -1,12 +1,15 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 
+
 require('electron-debug')({
     showDevTools: true
 });
 
+/*
 var WebSocketServer = require('ws').Server
   , wss = new WebSocketServer({ port: 8081 });
+*/
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -17,13 +20,23 @@ var spawn = require('child_process').spawn;
 
 //spawn go app
 //var child = spawn(path.join(__dirname, '..', 'main'), ['game.config', '--debug']);
-var child = spawn(path.join(__dirname, 'main') );
+var child = spawn(path.join(__dirname, 'oscflow') );
 
 child.on('close', function(code) {
     console.log("close go server");
         //return result;
 });
 
+
+    child.stdout.on('data', function(data) {
+        //result += data.toString();
+        console.log(data.toString());
+        //ws.send(data.toString());
+        //console.log("sadd");
+        //ws.send('something from osc');
+    });
+
+/*
 //websocket
 wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
@@ -40,6 +53,7 @@ wss.on('connection', function connection(ws) {
 
   //ws.send('something from server');
 });
+*/
 
 // attach events, etc.
 
@@ -57,7 +71,7 @@ app.on('window-all-closed', function() {
 app.on('ready', function() {
 
     // Create the browser window.
-    mainWindow = new BrowserWindow({width: 320, height: 240});
+    mainWindow = new BrowserWindow({width: 320, height: 600});
 
     // and load the index.html of the app.
     mainWindow.loadURL('file://' + __dirname + '/index.html');

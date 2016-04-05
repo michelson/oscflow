@@ -20,7 +20,7 @@ deps() {
 }
 
 build() {
-  go build main.go
+  go build oscflow
 }
 
 run() {

@@ -30,7 +30,7 @@
     "webpack-dev-server": "^1.9.0"
   },
   "scripts": {
-    "start": "electron main.js",
+    "start": "make build ; electron main.js",
     "watch": "./node_modules/.bin/webpack-dev-server",
     "electron-rebuild": "./node_modules/.bin/electron-rebuild"
   },
