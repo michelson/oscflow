@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <title><%= current_page.data.title || "The Middleman" %></title>
+
+    <%= stylesheet_link_tag "normalize", "all" %>
+
+    <!-- Updated to 'application' instead of 'all' -->
+  </head>
+
+  <body class="<%= page_classes %>">
+    <%= yield %>
+
+
+    <%= javascript_include_tag  "all" %>
+
+    <!-- Include any scripts defined on the rendered page -->
+    <% if data.page.scripts %>
+      <%= javascript_include_tag data.page.scripts %>
+    <% end %>
+
+  </body>
+</html>
