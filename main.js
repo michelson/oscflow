@@ -71,10 +71,11 @@ app.on('window-all-closed', function() {
 app.on('ready', function() {
 
     // Create the browser window.
-    mainWindow = new BrowserWindow({width: 320, height: 600});
+    mainWindow = new BrowserWindow({width: 320, height: 600, show: true});
 
     // and load the index.html of the app.
-    mainWindow.loadURL('file://' + __dirname + '/index.html');
+    // mainWindow.loadURL('file://' + __dirname + '/index.html');
+     mainWindow.loadURL('http://localhost:8181');
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function() {

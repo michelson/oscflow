@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/hypebeast/go-osc/osc"
 	//gui "gui"
-	//web "web"
+	web "web"
 	ws "ws"
 )
 
@@ -33,7 +33,7 @@ func main() {
 
 	ws.FakeSender()
 
-	//go web.Example()
+	go web.Example()
 
 	//go gui.Example()
 
