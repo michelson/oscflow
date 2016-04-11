@@ -40,6 +40,16 @@
     </div>
 
 @PatchesList = React.createClass
+
+  getInitialState: ->
+    collection: []
+
+  componentDidMount: ->
+
+    $.getJSON( "http://localhost:8181/patches", ()=>
+    ).done (data)=>
+      @setState collection: data
+
   render: ->
     return(
 
@@ -56,14 +66,19 @@
               <div className="section__circle-container__circle mdl-color--primary"></div>
             </div>
 
-            <div className="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-              <ReactRouter.Link to="/patches/1">
-                <h5>Lorem ipsum dolor sit amet</h5>
-                Dolore ex deserunt aute fugiat aute nulla ea 
-                sunt aliqua nisi cupidatat eu. Duis nulla tempor do 
-                aute et eiusmod velit exercitation nostrud quis.
-              </ReactRouter.Link>
-            </div>
+            {
+              @state.collection.map (item)=>
+
+                <div className="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <ReactRouter.Link to="/patches/1">
+                    <h5>{item.name}</h5>
+                    
+                  </ReactRouter.Link>
+                </div>
+
+            }
+
+
 
           </div>
 
