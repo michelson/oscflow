@@ -22,10 +22,7 @@ func HelloServer(w http.ResponseWriter, req *http.Request) {
 func PatchesIndex(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Access-Control-Allow-Origin", "*")
 
-	patches := p.Patches{
-		p.Patch{Name: "Write presentation", Location: true},
-		p.Patch{Name: "Host meetup", Location: false},
-	}
+	patches, _ := p.GetPatches()
 
 	if err := json.NewEncoder(w).Encode(patches); err != nil {
 		panic(err)
@@ -57,7 +54,8 @@ func serveSingle(pattern string, filename string) {
 	})
 }
 
-func Example() {
+func Handlers() *pat.PatternServeMux {
+
 	m := pat.New()
 	//m.Get("/", http.FileServer(http.Dir("./")))
 	m.Get("/", http.FileServer(http.Dir("./interface/build")))
@@ -78,8 +76,14 @@ func Example() {
 	// may also be exported. (i.e. /debug/pprof/*)
 	http.Handle("/", m)
 
-	//http.Handle("/static/", http.HandlerFunc(ServeAsset))
+	return m
 
+}
+
+func Example() {
+
+	//http.Handle("/static/", http.HandlerFunc(ServeAsset))
+	Handlers()
 	err := http.ListenAndServe(":8181", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
