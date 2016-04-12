@@ -40,7 +40,11 @@ func PatchesShow(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get(":id")
 	fmt.Println(id)
 
-	patches := p.Patch{Name: "Write presentation" + id, Location: true}
+	patches, err := patches.GetPatch(id)
+
+	if err != nil {
+		panic(err)
+	}
 
 	if err := json.NewEncoder(w).Encode(patches); err != nil {
 		panic(err)
@@ -73,7 +77,7 @@ func Handlers() *pat.PatternServeMux {
 
 	//m.Get("/static", http.FileServer(http.Dir("./interface/build")))
 
-	serveSingle("/javascripts/all.js", "./interface/build/javascripts/all.js")
+	//serveSingle("/javascripts/all.js", "./interface/build/javascripts/all.js")
 	serveSingle("/stylesheets/all.css", "./interface/build/stylesheets/all.css")
 
 	// Register this pat with the default serve mux so that other packages
