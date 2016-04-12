@@ -23,7 +23,7 @@ deps() {
 
 build() {
   go build oscflow
-  #cd interface ; middleman build
+  cd interface ; middleman build
 }
 
 run() {
@@ -32,7 +32,7 @@ run() {
 }
 
 test() {
-  ls ./src | grep -v "\." | sed 's/\///g' | xargs go test -cover
+  ls ./src | grep -v "\." | sed 's/\///g' | xargs go test -v #-cover
 }
 
 format() {
