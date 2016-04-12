@@ -22,7 +22,7 @@ func (self *Patches) GetPatch(id string) (Patch, error) {
 		}
 	}
 
-	return Patch{}, errors.New("emit macho dwarf: elf header corrupted")
+	return Patch{}, errors.New("No Patch found!!")
 }
 
 /*
