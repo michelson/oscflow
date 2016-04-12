@@ -77,7 +77,7 @@ func Handlers() *pat.PatternServeMux {
 
 	//m.Get("/static", http.FileServer(http.Dir("./interface/build")))
 
-	//serveSingle("/javascripts/all.js", "./interface/build/javascripts/all.js")
+	serveSingle("/javascripts/all.js", "./interface/build/javascripts/all.js")
 	serveSingle("/stylesheets/all.css", "./interface/build/stylesheets/all.css")
 
 	// Register this pat with the default serve mux so that other packages
