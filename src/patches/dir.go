@@ -2,7 +2,7 @@ package patches
 
 import (
 	//"errors"
-	"fmt"
+	//"fmt"
 	"io/ioutil"
 	"log"
 	"path"
@@ -26,7 +26,7 @@ func GetPatches() ([]Patch, error) {
 
 	for _, file := range files {
 		p = append(p, Patch{Name: file.Name()})
-		fmt.Println(file.Name())
+		//fmt.Println(file.Name())
 	}
 
 	return p, nil

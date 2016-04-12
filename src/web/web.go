@@ -10,6 +10,8 @@ import (
 	p "patches"
 )
 
+var patches = p.Patches{}
+
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
 }
@@ -23,6 +25,8 @@ func PatchesIndex(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Access-Control-Allow-Origin", "*")
 
 	patches, _ := p.GetPatches()
+
+	fmt.Println(patches)
 
 	if err := json.NewEncoder(w).Encode(patches); err != nil {
 		panic(err)

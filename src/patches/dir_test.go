@@ -9,7 +9,7 @@ func TestGetPatches(t *testing.T) {
 
 	p, err := GetPatches()
 
-	t.Logf("this is the patches %v", p)
+	//t.Logf("this is the patches %v", p)
 
 	if len(p) <= 0 {
 		t.Fatalf("empty patches dir: %d", len(p))
