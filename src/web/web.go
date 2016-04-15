@@ -62,6 +62,20 @@ func serveSingle(pattern string, filename string) {
 	})
 }
 
+type test_struct struct {
+	Test string
+}
+
+func PatchReceiver(rw http.ResponseWriter, req *http.Request) {
+	decoder := json.NewDecoder(req.Body)
+	var t test_struct
+	err := decoder.Decode(&t)
+	if err != nil {
+		panic(err)
+	}
+	log.Println(t.Test)
+}
+
 func Handlers() *pat.PatternServeMux {
 
 	m := pat.New()
@@ -74,6 +88,8 @@ func Handlers() *pat.PatternServeMux {
 	m.Get("/hello/:name", http.HandlerFunc(HelloServer))
 	m.Get("/patches", http.HandlerFunc(PatchesIndex))
 	m.Get("/patches/:id", http.HandlerFunc(PatchesShow))
+
+	m.Post("/patches/:id", http.HandlerFunc(PatchReceiver))
 
 	//m.Get("/static", http.FileServer(http.Dir("./interface/build")))
 
