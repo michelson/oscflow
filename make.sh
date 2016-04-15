@@ -21,6 +21,10 @@ deps() {
   printf "\n"
 }
 
+dev() {
+  cd interface ; middleman s
+}
+
 build() {
   go build oscflow
   cd interface ; middleman build

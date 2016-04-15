@@ -6,6 +6,7 @@
 ReactDOM.render((
   <ReactRouter.Router history={ReactRouter.browserHistory}>
     <ReactRouter.Route path="/" component={App}>
+      <ReactRouter.Route path="/" component={PatchesList}/>
       <ReactRouter.Route path="patches/:patch" component={Patch}/>
     </ReactRouter.Route>
   </ReactRouter.Router>

@@ -1,0 +1,12 @@
+#N canvas 151 224 450 300 10;
+#X obj 30 131 osc~;
+#X obj 31 157 dac~;
+#X obj 30 103 netreceive 3000;
+#X obj 37 20 loadbang;
+#X msg 37 44 \; pd dsp 1;
+#X text 118 19 it will send a bang as soon as a patch is loaded;
+#X text 119 51 it will activate the sound;
+#X text 84 134 the received message is transformed in sound;
+#X connect 0 0 1 0;
+#X connect 2 0 0 0;
+#X connect 3 0 4 0;

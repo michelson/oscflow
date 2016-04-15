@@ -7,6 +7,9 @@ build:
 run:
 	./make.sh run
 
+dev:
+	./make.sh dev
+
 deps:
 	./make.sh deps
 
