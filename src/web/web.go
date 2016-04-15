@@ -92,6 +92,10 @@ func Example() {
 
 	//http.Handle("/static/", http.HandlerFunc(ServeAsset))
 	Handlers()
+
+	//run no gui main app
+	go p.InitMainPatch()
+
 	err := http.ListenAndServe(":8181", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
