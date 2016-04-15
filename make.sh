@@ -16,20 +16,27 @@ deps() {
     go get -u -t golang.org/x/net/websocket
   printf "###         (03/06)\r"
     go get -u -t github.com/miketheprogrammer/go-thrust
+  printf "####        (04/06)\r"
+    go get github.com/bmizerany/pat
   printf "\n"
 }
 
+dev() {
+  cd interface ; middleman s
+}
+
 build() {
-  go build main.go
+  go build oscflow
+  cd interface ; middleman build
 }
 
 run() {
   echo $GOPATH
-  go build oscflow ; ./oscflow 
+  go run src/oscflow/main.go 
 }
 
 test() {
-  ls ./src | grep -v "\." | sed 's/\///g' | xargs go test -cover
+  ls ./src | grep -v "\." | sed 's/\///g' | xargs go test -v #-cover
 }
 
 format() {

@@ -3,7 +3,7 @@ elect-test
 main
 public
 dist
-./oscflow
+oscflow
 .vagrant
 
 src/golang.com

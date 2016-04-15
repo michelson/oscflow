@@ -17,14 +17,29 @@
 
 ### Run application
 
-tab1: `npm run-script watch`
+tab1: `cd interface ; middleman build`
 
 tab2: `npm start` // `make run` (todo: ws to interface)
+
+
+
+### API
+
+/
+
+/patches
+
+/patches/:id
 
 
 ### Build static assets
 
 `webpack`
+
+### Puredata No GUI
+
+https://puredata.info/docs/faq/commandline
+
 
 #MODEL
 

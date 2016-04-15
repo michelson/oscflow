@@ -1,0 +1,8 @@
+#N canvas 62 194 450 300 10;
+#X obj 263 134 netsend;
+#X msg 264 53 connect localhost 3000;
+#X msg 264 88 send 440;
+#X text 87 53 first connect to the port...;
+#X text 116 90 ...so send the message;
+#X connect 1 0 0 0;
+#X connect 2 0 0 0;

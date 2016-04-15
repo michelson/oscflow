@@ -1,0 +1,17 @@
+#N canvas 386 213 729 229 10;
+#X msg 32 32 msg 600 30 wouw!;
+#X text 157 24 1 - creates a message (x=600 and y =30) and its content
+is "wouw!" \;;
+#X text 156 65 2 - creates a print object (x=600 and y =50) \;;
+#X text 162 179 sends all the messages to pd file sample.pd (this one!)
+;
+#X msg 33 105 connect 8 0 9 0;
+#X msg 33 67 obj 600 130 print;
+#X text 158 100 3 - connects the first outlet (0) of pd object number
+8 (the message) to the the first inlet (0) of pd object 9 (the print).
+the numbers (8 and 9) refers to the order that the pd objects were
+inserted in the file \;;
+#X obj 33 179 send pd-sample1.pd;
+#X connect 0 0 7 0;
+#X connect 4 0 7 0;
+#X connect 5 0 7 0;
