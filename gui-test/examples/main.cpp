@@ -43,6 +43,8 @@ int main(int, char**)
 
     bool show_test_window = true;
     static bool no_scrollbar = true;
+    static bool no_move = true;
+
 
 
     bool activate_play = false;
@@ -54,6 +56,7 @@ int main(int, char**)
 
     ImGuiWindowFlags window_flags = 0;
     if (no_scrollbar) window_flags |= ImGuiWindowFlags_NoScrollbar;
+    if (no_move)      window_flags |= ImGuiWindowFlags_NoMove;
 
 
     // Main loop
