@@ -42,6 +42,8 @@ int main(int, char**)
     //io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
 
     bool show_test_window = true;
+    static bool no_scrollbar = true;
+
 
     bool activate_play = false;
     bool activate_stop = false;
@@ -49,6 +51,10 @@ int main(int, char**)
 
     bool show_another_window = false;
     ImVec4 clear_color = ImColor(114, 144, 154);
+
+    ImGuiWindowFlags window_flags = 0;
+    if (no_scrollbar) window_flags |= ImGuiWindowFlags_NoScrollbar;
+
 
     // Main loop
     while (!glfwWindowShouldClose(window))
@@ -59,7 +65,9 @@ int main(int, char**)
         // 1. Show a simple window
         // Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets appears in a window automatically called "Debug"
         {
-            ImGui::SetNextWindowSize(ImVec2(200,100), ImGuiSetCond_FirstUseEver);
+            ImGui::SetNextWindowSize(ImVec2(320,240), ImGuiSetCond_FirstUseEver);
+
+            ImGui::Begin("OscFlow General Settings", &show_another_window);
 
             static float f = 0.0f;
             ImGui::Text("OSCFLOW v.0.0.1");  ImGui::SameLine();
@@ -80,26 +88,28 @@ int main(int, char**)
             //if (ImGui::Button("Another Window")) show_another_window ^= 1;
             
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+            
+            // 3. Show the ImGui test window. Most of the sample code is in ImGui::ShowTestWindow()
+            if (show_test_window)
+            {
+                ImGui::ShowTestWindow(&show_test_window);
+            }
+
+            ImGui::End();
         }
 
-        ImGui::Separator();
+        //ImGui::Separator();
 
 
         // 2. Show another simple window, this time using an explicit Begin/End pair
+        /*
         if (show_another_window)
         {
             ImGui::SetNextWindowSize(ImVec2(200,100), ImGuiSetCond_FirstUseEver);
             ImGui::Begin("Another Window", &show_another_window);
             ImGui::Text("Hello");
             ImGui::End();
-        }
-
-        // 3. Show the ImGui test window. Most of the sample code is in ImGui::ShowTestWindow()
-        if (show_test_window)
-        {
-            
-            ImGui::ShowTestWindow(&show_test_window);
-        }
+        }*/
 
         // Rendering
         int display_w, display_h;
