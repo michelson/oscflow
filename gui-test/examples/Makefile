@@ -13,7 +13,7 @@
 EXE = opengl3_example
 OBJS = main.o imgui_impl_glfw_gl3.o
 # ../imgui/imgui_demo.o
-OBJS += ../imgui/imgui.o ../imgui/oscflow.o ../imgui/imgui_draw.o
+OBJS += ../imgui/imgui.o ./oscflow.o ../imgui/imgui_draw.o
 OBJS += ../libs/gl3w/GL/gl3w.o
 
 UNAME_S := $(shell uname -s)

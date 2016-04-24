@@ -42,10 +42,14 @@ int main(int, char**)
     //io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
 
     bool show_test_window = true;
-    static bool no_scrollbar = true;
-    static bool no_move = true;
 
-
+    bool no_titlebar = true;
+    bool no_border = true;
+    bool no_resize = true;
+    bool no_move = true;
+    bool no_scrollbar = false;
+    bool no_collapse = false;
+    bool no_menu = false;
 
     bool activate_play = false;
     bool activate_stop = false;
@@ -58,19 +62,46 @@ int main(int, char**)
     if (no_scrollbar) window_flags |= ImGuiWindowFlags_NoScrollbar;
     if (no_move)      window_flags |= ImGuiWindowFlags_NoMove;
 
-
     // Main loop
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents();
         ImGui_ImplGlfwGL3_NewFrame();
 
+
+        // Demonstrate the various window flags. Typically you would just use the default.
+        ImGuiWindowFlags window_flags = 0;
+        if (no_titlebar)  window_flags |= ImGuiWindowFlags_NoTitleBar;
+        if (!no_border)   window_flags |= ImGuiWindowFlags_ShowBorders;
+        if (no_resize)    window_flags |= ImGuiWindowFlags_NoResize;
+        if (no_move)      window_flags |= ImGuiWindowFlags_NoMove;
+        if (no_scrollbar) window_flags |= ImGuiWindowFlags_NoScrollbar;
+        if (no_collapse)  window_flags |= ImGuiWindowFlags_NoCollapse;
+        if (!no_menu)     window_flags |= ImGuiWindowFlags_MenuBar;
+        ImGui::SetNextWindowSize(ImVec2(550,680), ImGuiSetCond_FirstUseEver);
+
         // 1. Show a simple window
         // Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets appears in a window automatically called "Debug"
         {
             ImGui::SetNextWindowSize(ImVec2(320,240), ImGuiSetCond_FirstUseEver);
 
-            ImGui::Begin("OscFlow General Settings", &show_another_window);
+            ImGui::Begin("OscFlow General Settings", &show_another_window, window_flags);
+
+            if (ImGui::BeginMenuBar())
+            {
+                if (ImGui::BeginMenu("Menu"))
+                {
+                    //ShowExampleMenuFile();
+                    if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
+                    if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}  // Disabled item
+                    ImGui::Separator();
+                    if (ImGui::MenuItem("Cut", "CTRL+X")) {}
+                    if (ImGui::MenuItem("Copy", "CTRL+C")) {}
+                    if (ImGui::MenuItem("Paste", "CTRL+V")) {}
+                    ImGui::EndMenu();
+                }
+                ImGui::EndMenuBar();
+            }
 
             static float f = 0.0f;
             ImGui::Text("OSCFLOW v.0.0.1");  ImGui::SameLine();
@@ -85,7 +116,13 @@ int main(int, char**)
             if (ImGui::Button("Stop")) activate_stop ^= 1; ImGui::SameLine();
             if (ImGui::Button("Rec"))  activate_rec ^= 1;
 
-
+            //ImGui::Checkbox("No titlebar", &no_titlebar); ImGui::SameLine(150);
+            //ImGui::Checkbox("No border", &no_border); ImGui::SameLine(300);
+            //ImGui::Checkbox("No resize", &no_resize);
+            //ImGui::Checkbox("No move", &no_move); ImGui::SameLine(150);
+            //ImGui::Checkbox("No scrollbar", &no_scrollbar); ImGui::SameLine(300);
+            //ImGui::Checkbox("No collapse", &no_collapse);
+            //ImGui::Checkbox("No menu", &no_menu);
 
             //if (ImGui::Button("Test Window")) show_test_window ^= 1;
             //if (ImGui::Button("Another Window")) show_another_window ^= 1;
