@@ -14,7 +14,9 @@ var app_dir = "/Applications/Pd-extended.app/Contents/Resources/bin/pd"
 
 func InitMainPatch() {
 
-	cmd := exec.Command(app_dir, "-nogui", "-verbose", "main.pd")
+	path := "/Users/michelson/Documents/node_apps/elec-test/"
+	patch := path + "main.pd"
+	cmd := exec.Command(app_dir, "-nogui", "-verbose", patch)
 	cmd.Stdin = strings.NewReader("some input")
 	var out bytes.Buffer
 	cmd.Stdout = &out

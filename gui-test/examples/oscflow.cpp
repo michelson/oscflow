@@ -8,6 +8,7 @@
 #include <stdio.h>          // vsnprintf, sscanf, printf
 #include <stdlib.h>         // NULL, malloc, free, qsort, atoi
 
+
 #if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
 #include <stddef.h>         // intptr_t
 #else
@@ -63,7 +64,11 @@ static void ShowHelpMarker(const char* desc)
         ImGui::SetTooltip(desc);
 }*/
 
-      void ImGui::ShowTestWindow(bool* p_opened){
+
+
+
+    void ImGui::ShowTestWindow(bool* p_opened){
+
 
         if (ImGui::CollapsingHeader("Patches")){
           if (ImGui::TreeNode("Basic"))
@@ -94,7 +99,7 @@ static void ShowHelpMarker(const char* desc)
                 ImGui::TreePop();
             }
           }
-      }
+    }
 
 #else
 

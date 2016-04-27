@@ -5,7 +5,7 @@ public
 dist
 oscflow
 .vagrant
-
+*.o
 src/golang.com
 src/github.com
 src/gopkg.in

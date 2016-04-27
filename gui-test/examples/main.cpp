@@ -7,13 +7,59 @@
 #include <GL/gl3w.h>
 #include <GLFW/glfw3.h>
 
+#include <string>
+#include <iostream>
+#include <stdlib.h>
+#include <unistd.h>
+
+//#include <pthread.h>
+
+
 static void error_callback(int error, const char* description)
 {
     fprintf(stderr, "Error %d: %s\n", error, description);
 }
 
+
+static int task1(const char* msg)
+{
+    /*pid_t child = 0;
+    child = fork();
+    if (child < 0) {
+        fprintf( stderr, "process failed to fork\n" );
+        return 1;
+    }
+    if (child == 0) {
+        wait(NULL);
+    }
+    else {
+        execl( "/bin/ls", "ls");
+    }
+    return 0;*/
+
+    pid_t pid = fork();
+    if(pid < 0){
+        perror("fork failed");
+    } else if (pid == 0){
+        //child now exec
+
+    }
+    //parent
+    // do clever processinf here
+    return 0;
+}
+
+void execPd(){
+
+    char* args[] = {
+        "../../oscflow"
+    };
+    execv(args[0], args);  
+}
+
 int main(int, char**)
 {
+    std::cout << "AAA: ";
     // Setup window
     glfwSetErrorCallback(error_callback);
     if (!glfwInit())
@@ -25,6 +71,12 @@ int main(int, char**)
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
     GLFWwindow* window = glfwCreateWindow(320, 240, "OSCFLOW", NULL, NULL);
+
+    //std::thread t1(task1("../../oscflow"));
+    //task1("../../oscflow");
+    execPd();
+    //exec("ls -l .");
+
     glfwMakeContextCurrent(window);
     gl3wInit();
 

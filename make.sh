@@ -27,7 +27,7 @@ dev() {
 
 build() {
   go build oscflow
-  cd interface ; middleman build
+  #cd interface ; middleman build
 }
 
 run() {
