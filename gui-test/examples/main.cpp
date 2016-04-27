@@ -52,7 +52,7 @@ static int task1(const char* msg)
 void execPd(){
 
     char* args[] = {
-        "../../oscflow"
+        "ls", "l"
     };
     execv(args[0], args);  
 }
